@@ -17,11 +17,17 @@ class AuthViewModel: ObservableObject {
         
         apiService.$isAuthenticated
             .receive(on: DispatchQueue.main)
-            .assign(to: &$isAuthenticated)
+            .sink { [weak self] value in
+                self?.isAuthenticated = value
+            }
+            .store(in: &cancellables)
         
         apiService.$currentUser
             .receive(on: DispatchQueue.main)
-            .assign(to: &$currentUser)
+            .sink { [weak self] value in
+                self?.currentUser = value
+            }
+            .store(in: &cancellables)
     }
     
     func login(username: String, password: String) async {
