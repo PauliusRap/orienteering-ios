@@ -7,86 +7,62 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-/* OrienteeringGameApp.swift in Build File */
-A0000006000000000000001 /* OrienteeringGameApp.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000006000000000000001; };
-/* ContentView.swift in Build File */
-A0000007000000000000001 /* ContentView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000007000000000000001; };
-/* AppState.swift in Build File */
-A0000008000000000000001 /* AppState.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000008000000000000001; };
-/* Hunt.swift in Build File */
-A0000015000000000000001 /* Hunt.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000015000000000000001; };
-/* Clue.swift in Build File */
-A0000016000000000000001 /* Clue.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000016000000000000001; };
-/* HuntLocation.swift in Build File */
-A0000017000000000000001 /* HuntLocation.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000017000000000000001; };
-/* Player.swift in Build File */
-A0000018000000000000001 /* Player.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000018000000000000001; };
-/* PlayerProgress.swift in Build File */
-A0000019000000000000001 /* PlayerProgress.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000019000000000000001; };
-/* HomeView.swift in Build File */
-A0000025000000000000001 /* HomeView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000025000000000000001; };
-/* HuntSelectionView.swift in Build File */
-A0000026000000000000001 /* HuntSelectionView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000026000000000000001; };
-/* ActiveHuntView.swift in Build File */
-A0000027000000000000001 /* ActiveHuntView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000027000000000000001; };
-/* HuntMapView.swift in Build File */
-A0000028000000000000001 /* HuntMapView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000028000000000000001; };
-/* CheckInView.swift in Build File */
-A0000029000000000000001 /* CheckInView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000029000000000000001; };
-/* ProgressView.swift in Build File */
-A0000030000000000000001 /* ProgressView.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000030000000000000001; };
-/* HomeViewModel.swift in Build File */
-A0000031000000000000001 /* HomeViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000031000000000000001; };
-/* HuntSelectionViewModel.swift in Build File */
-A0000032000000000000001 /* HuntSelectionViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000032000000000000001; };
-/* ActiveHuntViewModel.swift in Build File */
-A0000033000000000000001 /* ActiveHuntViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000033000000000000001; };
-/* HuntMapViewModel.swift in Build File */
-A0000034000000000000001 /* HuntMapViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000034000000000000001; };
-/* CheckInViewModel.swift in Build File */
-A0000035000000000000001 /* CheckInViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000035000000000000001; };
-/* ProgressViewModel.swift in Build File */
-A0000036000000000000001 /* ProgressViewModel.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000036000000000000001; };
-/* MockDataService.swift in Build File */
-A0000037000000000000001 /* MockDataService.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000037000000000000001; };
-/* LocationService.swift in Build File */
-A0000038000000000000001 /* LocationService.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000038000000000000001; };
-/* LaunchScreen.swift in Build File */
-A0000040000000000000001 /* LaunchScreen.swift in Build File */ = { isa = PBXBuildFile; fileRef = A0000040000000000000001; };
-/* Assets.xcassets in Build File */
-A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFile; fileRef = A0000039000000000000001; };
+		F1000001 /* OrienteeringGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000001; };
+		F1000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000002; };
+		F1000003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000003; };
+		F1000004 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000004; };
+		F1000005 /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000005; };
+		F1000006 /* HuntLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000006; };
+		F1000007 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000007; };
+		F1000008 /* PlayerProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000008; };
+		F1000009 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000009; };
+		F100000A /* HuntSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000A; };
+		F100000B /* ActiveHuntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000B; };
+		F100000C /* HuntMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000C; };
+		F100000D /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000D; };
+		F100000E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000E; };
+		F100000F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000F; };
+		F1000010 /* HuntSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000010; };
+		F1000011 /* ActiveHuntViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000011; };
+		F1000012 /* HuntMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000012; };
+		F1000013 /* CheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000013; };
+		F1000014 /* ProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000014; };
+		F1000015 /* MockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000015; };
+		F1000016 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000016; };
+		F1000017 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2000017; };
+		F1000018 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2000018; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A0000001000000000000001 /* OrienteeringGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrienteeringGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0000006000000000000001 /* OrienteeringGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/OrienteeringGameApp.swift; sourceTree = SOURCE_ROOT; };
-		A0000007000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ContentView.swift; sourceTree = SOURCE_ROOT; };
-		A0000008000000000000001 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/AppState.swift; sourceTree = SOURCE_ROOT; };
-		A0000015000000000000001 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Models/Hunt.swift; sourceTree = SOURCE_ROOT; };
-		A0000016000000000000001 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Models/Clue.swift; sourceTree = SOURCE_ROOT; };
-		A0000017000000000000001 /* HuntLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Models/HuntLocation.swift; sourceTree = SOURCE_ROOT; };
-		A0000018000000000000001 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Models/Player.swift; sourceTree = SOURCE_ROOT; };
-		A0000019000000000000001 /* PlayerProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Models/PlayerProgress.swift; sourceTree = SOURCE_ROOT; };
-		A0000025000000000000001 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/Home/HomeView.swift; sourceTree = SOURCE_ROOT; };
-		A0000026000000000000001 /* HuntSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/Hunt/HuntSelectionView.swift; sourceTree = SOURCE_ROOT; };
-		A0000027000000000000001 /* ActiveHuntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/Hunt/ActiveHuntView.swift; sourceTree = SOURCE_ROOT; };
-		A0000028000000000000001 /* HuntMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/Map/HuntMapView.swift; sourceTree = SOURCE_ROOT; };
-		A0000029000000000000001 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/CheckIn/CheckInView.swift; sourceTree = SOURCE_ROOT; };
-		A0000030000000000000001 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Views/Progress/ProgressView.swift; sourceTree = SOURCE_ROOT; };
-		A0000031000000000000001 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000032000000000000001 /* HuntSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/HuntSelectionViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000033000000000000001 /* ActiveHuntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/ActiveHuntViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000034000000000000001 /* HuntMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/HuntMapViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000035000000000000001 /* CheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/CheckInViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000036000000000000001 /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/ViewModels/ProgressViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A0000037000000000000001 /* MockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Services/MockDataService.swift; sourceTree = SOURCE_ROOT; };
-		A0000038000000000000001 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Services/LocationService.swift; sourceTree = SOURCE_ROOT; };
-		A0000040000000000000001 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGame/Resources/LaunchScreen.swift; sourceTree = SOURCE_ROOT; };
-		A0000039000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OrienteeringGame/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-	/* End PBXFileReference section */
+		F2000000 /* OrienteeringGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrienteeringGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2000001 /* OrienteeringGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrienteeringGameApp.swift; sourceTree = "<group>"; };
+		F2000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F2000003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F2000004 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
+		F2000005 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
+		F2000006 /* HuntLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLocation.swift; sourceTree = "<group>"; };
+		F2000007 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		F2000008 /* PlayerProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProgress.swift; sourceTree = "<group>"; };
+		F2000009 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F200000A /* HuntSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSelectionView.swift; sourceTree = "<group>"; };
+		F200000B /* ActiveHuntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHuntView.swift; sourceTree = "<group>"; };
+		F200000C /* HuntMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMapView.swift; sourceTree = "<group>"; };
+		F200000D /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
+		F200000E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		F200000F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F2000010 /* HuntSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSelectionViewModel.swift; sourceTree = "<group>"; };
+		F2000011 /* ActiveHuntViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveHuntViewModel.swift; sourceTree = "<group>"; };
+		F2000012 /* HuntMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMapViewModel.swift; sourceTree = "<group>"; };
+		F2000013 /* CheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewModel.swift; sourceTree = "<group>"; };
+		F2000014 /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModel.swift; sourceTree = "<group>"; };
+		F2000015 /* MockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataService.swift; sourceTree = "<group>"; };
+		F2000016 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		F2000017 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
+		F2000018 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A0000002000000000000001 /* Frameworks */ = {
+		F3000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -96,150 +72,143 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A0000003000000000000001 = {
+		F4000001 = {
 			isa = PBXGroup;
 			children = (
-				A0000004000000000000001 /* OrienteeringGame */,
-				A0000005000000000000001 /* Products */,
+				F4000002 /* OrienteeringGame */,
+				F4000003 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A0000004000000000000001 /* OrienteeringGame */ = {
+		F4000002 /* OrienteeringGame */ = {
 			isa = PBXGroup;
 			children = (
-				A0000006000000000000001 /* OrienteeringGameApp.swift */,
-				A0000007000000000000001 /* ContentView.swift */,
-				A0000008000000000000001 /* AppState.swift */,
-				A0000009000000000000001 /* Models */,
-				A0000010000000000000001 /* Views */,
-				A0000011000000000000001 /* ViewModels */,
-				A0000012000000000000001 /* Services */,
-				A0000013000000000000001 /* Resources */,
-				A0000014000000000000001 /* Info.plist */,
+				F2000001 /* OrienteeringGameApp.swift */,
+				F2000002 /* ContentView.swift */,
+				F2000003 /* AppState.swift */,
+				F4000004 /* Models */,
+				F4000005 /* Views */,
+				F4000006 /* ViewModels */,
+				F4000007 /* Services */,
+				F4000008 /* Resources */,
+				F2000018 /* Assets.xcassets */,
 			);
 			path = OrienteeringGame;
 			sourceTree = "<group>";
 		};
-		A0000005000000000000001 /* Products */ = {
+		F4000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0000001000000000000001 /* OrienteeringGame.app */,
+				F2000000 /* OrienteeringGame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A0000009000000000000001 /* Models */ = {
+		F4000004 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A0000015000000000000001 /* Hunt.swift */,
-				A0000016000000000000001 /* Clue.swift */,
-				A0000017000000000000001 /* HuntLocation.swift */,
-				A0000018000000000000001 /* Player.swift */,
-				A0000019000000000000001 /* PlayerProgress.swift */,
+				F2000004 /* Hunt.swift */,
+				F2000005 /* Clue.swift */,
+				F2000006 /* HuntLocation.swift */,
+				F2000007 /* Player.swift */,
+				F2000008 /* PlayerProgress.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		A0000010000000000000001 /* Views */ = {
+		F4000005 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A0000020000000000000001 /* Home */,
-				A0000021000000000000001 /* Hunt */,
-				A0000022000000000000001 /* Map */,
-				A0000023000000000000001 /* CheckIn */,
-				A0000024000000000000001 /* Progress */,
+				F4000009 /* Home */,
+				F400000A /* Hunt */,
+				F400000B /* Map */,
+				F400000C /* CheckIn */,
+				F400000D /* Progress */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A0000020000000000000001 /* Home */ = {
+		F4000006 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				A0000025000000000000001 /* HomeView.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		A0000021000000000000001 /* Hunt */ = {
-			isa = PBXGroup;
-			children = (
-				A0000026000000000000001 /* HuntSelectionView.swift */,
-				A0000027000000000000001 /* ActiveHuntView.swift */,
-			);
-			path = Hunt;
-			sourceTree = "<group>";
-		};
-		A0000022000000000000001 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				A0000028000000000000001 /* HuntMapView.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		A0000023000000000000001 /* CheckIn */ = {
-			isa = PBXGroup;
-			children = (
-				A0000029000000000000001 /* CheckInView.swift */,
-			);
-			path = CheckIn;
-			sourceTree = "<group>";
-		};
-		A0000024000000000000001 /* Progress */ = {
-			isa = PBXGroup;
-			children = (
-				A0000030000000000000001 /* ProgressView.swift */,
-			);
-			path = Progress;
-			sourceTree = "<group>";
-		};
-		A0000011000000000000001 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				A0000031000000000000001 /* HomeViewModel.swift */,
-				A0000032000000000000001 /* HuntSelectionViewModel.swift */,
-				A0000033000000000000001 /* ActiveHuntViewModel.swift */,
-				A0000034000000000000001 /* HuntMapViewModel.swift */,
-				A0000035000000000000001 /* CheckInViewModel.swift */,
-				A0000036000000000000001 /* ProgressViewModel.swift */,
+				F200000F /* HomeViewModel.swift */,
+				F2000010 /* HuntSelectionViewModel.swift */,
+				F2000011 /* ActiveHuntViewModel.swift */,
+				F2000012 /* HuntMapViewModel.swift */,
+				F2000013 /* CheckInViewModel.swift */,
+				F2000014 /* ProgressViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		A0000012000000000000001 /* Services */ = {
+		F4000007 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A0000037000000000000001 /* MockDataService.swift */,
-				A0000038000000000000001 /* LocationService.swift */,
+				F2000015 /* MockDataService.swift */,
+				F2000016 /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		A0000013000000000000001 /* Resources */ = {
+		F4000008 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A0000039000000000000001 /* Assets.xcassets */,
-				A0000040000000000000001 /* LaunchScreen.swift */,
+				F2000017 /* LaunchScreen.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		A0000039000000000000001 /* Assets.xcassets */ = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder.assetcatalog;
-			path = Assets.xcassets;
+		F4000009 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F2000009 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F400000A /* Hunt */ = {
+			isa = PBXGroup;
+			children = (
+				F200000A /* HuntSelectionView.swift */,
+				F200000B /* ActiveHuntView.swift */,
+			);
+			path = Hunt;
+			sourceTree = "<group>";
+		};
+		F400000B /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F200000C /* HuntMapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F400000C /* CheckIn */ = {
+			isa = PBXGroup;
+			children = (
+				F200000D /* CheckInView.swift */,
+			);
+			path = CheckIn;
+			sourceTree = "<group>";
+		};
+		F400000D /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				F200000E /* ProgressView.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A0000041000000000000001 /* OrienteeringGame */ = {
+		F5000001 /* OrienteeringGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0000042000000000000001 /* Build configuration list for PBXNativeTarget "OrienteeringGame" */;
+			buildConfigurationList = F7000001 /* Build configuration list for PBXNativeTarget "OrienteeringGame" */;
 			buildPhases = (
-				A0000043000000000000001 /* Sources */,
-				A0000002000000000000001 /* Frameworks */,
-				A0000044000000000000001 /* Resources */,
+				F6000001 /* Sources */,
+				F3000001 /* Frameworks */,
+				F6000002 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -247,25 +216,25 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 			);
 			name = OrienteeringGame;
 			productName = OrienteeringGame;
-			productReference = A0000001000000000000001 /* OrienteeringGame.app */;
+			productReference = F2000000 /* OrienteeringGame.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A0000045000000000000001 /* Project object */ = {
+		F8000001 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A0000041000000000000001 = {
+					F5000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A0000046000000000000001 /* Build configuration list for PBXProject "OrienteeringGame" */;
+			buildConfigurationList = F7000002 /* Build configuration list for PBXProject "OrienteeringGame" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -273,62 +242,62 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 				en,
 				Base,
 			);
-			mainGroup = A0000003000000000000001;
-			productRefGroup = A0000005000000000000001 /* Products */;
+			mainGroup = F4000001;
+			productRefGroup = F4000003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0000041000000000000001 /* OrienteeringGame */,
+				F5000001 /* OrienteeringGame */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-        A0000044000000000000001 /* Resources */ = {
+		F6000002 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-            files = (
-                B0000039000000000000001 /* Assets.xcassets in Resources */,
-            );
+			files = (
+				F1000018 /* Assets.xcassets in Resources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A0000043000000000000001 /* Sources */ = {
+		F6000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0000006000000000000001 /* OrienteeringGameApp.swift in Sources */,
-				A0000007000000000000001 /* ContentView.swift in Sources */,
-				A0000008000000000000001 /* AppState.swift in Sources */,
-				A0000015000000000000001 /* Hunt.swift in Sources */,
-				A0000016000000000000001 /* Clue.swift in Sources */,
-				A0000017000000000000001 /* HuntLocation.swift in Sources */,
-				A0000018000000000000001 /* Player.swift in Sources */,
-				A0000019000000000000001 /* PlayerProgress.swift in Sources */,
-				A0000025000000000000001 /* HomeView.swift in Sources */,
-				A0000026000000000000001 /* HuntSelectionView.swift in Sources */,
-				A0000027000000000000001 /* ActiveHuntView.swift in Sources */,
-				A0000028000000000000001 /* HuntMapView.swift in Sources */,
-				A0000029000000000000001 /* CheckInView.swift in Sources */,
-				A0000030000000000000001 /* ProgressView.swift in Sources */,
-				A0000031000000000000001 /* HomeViewModel.swift in Sources */,
-				A0000032000000000000001 /* HuntSelectionViewModel.swift in Sources */,
-				A0000033000000000000001 /* ActiveHuntViewModel.swift in Sources */,
-				A0000034000000000000001 /* HuntMapViewModel.swift in Sources */,
-				A0000035000000000000001 /* CheckInViewModel.swift in Sources */,
-				A0000036000000000000001 /* ProgressViewModel.swift in Sources */,
-				A0000037000000000000001 /* MockDataService.swift in Sources */,
-				A0000038000000000000001 /* LocationService.swift in Sources */,
-				A0000040000000000000001 /* LaunchScreen.swift in Sources */,
+				F1000001 /* OrienteeringGameApp.swift in Sources */,
+				F1000002 /* ContentView.swift in Sources */,
+				F1000003 /* AppState.swift in Sources */,
+				F1000004 /* Hunt.swift in Sources */,
+				F1000005 /* Clue.swift in Sources */,
+				F1000006 /* HuntLocation.swift in Sources */,
+				F1000007 /* Player.swift in Sources */,
+				F1000008 /* PlayerProgress.swift in Sources */,
+				F1000009 /* HomeView.swift in Sources */,
+				F100000A /* HuntSelectionView.swift in Sources */,
+				F100000B /* ActiveHuntView.swift in Sources */,
+				F100000C /* HuntMapView.swift in Sources */,
+				F100000D /* CheckInView.swift in Sources */,
+				F100000E /* ProgressView.swift in Sources */,
+				F100000F /* HomeViewModel.swift in Sources */,
+				F1000010 /* HuntSelectionViewModel.swift in Sources */,
+				F1000011 /* ActiveHuntViewModel.swift in Sources */,
+				F1000012 /* HuntMapViewModel.swift in Sources */,
+				F1000013 /* CheckInViewModel.swift in Sources */,
+				F1000014 /* ProgressViewModel.swift in Sources */,
+				F1000015 /* MockDataService.swift in Sources */,
+				F1000016 /* LocationService.swift in Sources */,
+				F1000017 /* LaunchScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A0000047000000000000001 /* Debug */ = {
+		F9000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -391,7 +360,7 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 			};
 			name = Debug;
 		};
-		A0000048000000000000001 /* Release */ = {
+		F9000002 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -447,25 +416,22 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 			};
 			name = Release;
 		};
-		A0000049000000000000001 /* Debug */ = {
+		F9000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OrienteeringGame/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Orienteering";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show nearby hunt locations and verify check-ins.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -479,25 +445,22 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 			};
 			name = Debug;
 		};
-		A0000050000000000000001 /* Release */ = {
+		F9000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OrienteeringGame/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Orienteering";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show nearby hunt locations and verify check-ins.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -514,25 +477,25 @@ A0000039000000000000001 /* Assets.xcassets in Build File */ = { isa = PBXBuildFi
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0000042000000000000001 /* Build configuration list for PBXNativeTarget "OrienteeringGame" */ = {
+		F7000001 /* Build configuration list for PBXNativeTarget "OrienteeringGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0000049000000000000001 /* Debug */,
-				A0000050000000000000001 /* Release */,
+				F9000003 /* Debug */,
+				F9000004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0000046000000000000001 /* Build configuration list for PBXProject "OrienteeringGame" */ = {
+		F7000002 /* Build configuration list for PBXProject "OrienteeringGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0000047000000000000001 /* Debug */,
-				A0000048000000000000001 /* Release */,
+				F9000001 /* Debug */,
+				F9000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A0000045000000000000001 /* Project object */;
+	rootObject = F8000001 /* Project object */;
 }
