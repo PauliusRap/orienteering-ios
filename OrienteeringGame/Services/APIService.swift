@@ -310,6 +310,7 @@ class APIService: ObservableObject {
 
 struct LoginResponse: Decodable {
     let token: String
+    let user: User?
 }
 
 struct ErrorResponse: Decodable {

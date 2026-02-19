@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F5000001"
+               BlueprintIdentifier = "F001"
                BuildableName = "OrienteeringGame.app"
                BlueprintName = "OrienteeringGame"
                ReferencedContainer = "container:OrienteeringGame.xcodeproj">
@@ -43,7 +43,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F5000001"
+            BlueprintIdentifier = "F001"
             BuildableName = "OrienteeringGame.app"
             BlueprintName = "OrienteeringGame"
             ReferencedContainer = "container:OrienteeringGame.xcodeproj">
@@ -60,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F5000001"
+            BlueprintIdentifier = "F001"
             BuildableName = "OrienteeringGame.app"
             BlueprintName = "OrienteeringGame"
             ReferencedContainer = "container:OrienteeringGame.xcodeproj">
