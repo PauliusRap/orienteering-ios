@@ -50,7 +50,8 @@ class AuthViewModel: ObservableObject {
         
         do {
             _ = try await apiService.register(username: username, email: email, password: password)
-            isAuthenticated = true
+            // After successful registration, automatically login
+            _ = try await apiService.login(username: username, password: password)
         } catch {
             errorMessage = error.localizedDescription
         }

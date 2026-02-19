@@ -31,8 +31,7 @@ enum APIError: LocalizedError {
 }
 
 // MARK: - API Service
-@MainActor
-class APIService: ObservableObject {
+final class APIService: ObservableObject {
     static let shared = APIService()
     
     private let baseURL = "https://orienteering-game.fly.dev"
@@ -154,9 +153,11 @@ class APIService: ObservableObject {
                     throw APIError.decodingError(error)
                 }
             case 401:
-                // Token expired or invalid
                 clearToken()
-                isAuthenticated = false
+                Task { @MainActor in
+                    self.isAuthenticated = false
+                    self.currentUser = nil
+                }
                 throw APIError.unauthorized
             case 400...499:
                 // Client error - try to extract message
@@ -204,31 +205,40 @@ class APIService: ObservableObject {
         let response: LoginResponse = try await performRequest(request)
         
         storeToken(response.token)
-        isAuthenticated = true
         
-        // Use user from login response, or fetch if not present
-        if let user = response.user {
-            currentUser = user
-            cacheUser(user)
-            return user
+        let user: User
+        if let responseUser = response.user {
+            user = responseUser
         } else {
-            let user = try await fetchProfile()
-            currentUser = user
-            cacheUser(user)
-            return user
+            user = try await fetchProfileInternal()
         }
+        
+        await MainActor.run {
+            self.isAuthenticated = true
+            self.currentUser = user
+        }
+        cacheUser(user)
+        return user
     }
     
     func logout() async {
         clearToken()
-        isAuthenticated = false
-        currentUser = nil
+        await MainActor.run {
+            self.isAuthenticated = false
+            self.currentUser = nil
+        }
+    }
+    
+    private func fetchProfileInternal() async throws -> User {
+        let request = try buildRequest(endpoint: "/api/users/me", requiresAuth: true)
+        return try await performRequest(request)
     }
     
     func fetchProfile() async throws -> User {
-        let request = try buildRequest(endpoint: "/api/users/me", requiresAuth: true)
-        let user: User = try await performRequest(request)
-        currentUser = user
+        let user = try await fetchProfileInternal()
+        await MainActor.run {
+            self.currentUser = user
+        }
         cacheUser(user)
         return user
     }
