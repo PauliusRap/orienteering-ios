@@ -155,7 +155,8 @@ class APIService: ObservableObject {
                 }
             case 401:
                 // Token expired or invalid
-                await logout()
+                clearToken()
+                isAuthenticated = false
                 throw APIError.unauthorized
             case 400...499:
                 // Client error - try to extract message
@@ -205,12 +206,17 @@ class APIService: ObservableObject {
         storeToken(response.token)
         isAuthenticated = true
         
-        // Fetch user profile after login
-        let user = try await fetchProfile()
-        currentUser = user
-        cacheUser(user)
-        
-        return user
+        // Use user from login response, or fetch if not present
+        if let user = response.user {
+            currentUser = user
+            cacheUser(user)
+            return user
+        } else {
+            let user = try await fetchProfile()
+            currentUser = user
+            cacheUser(user)
+            return user
+        }
     }
     
     func logout() async {
