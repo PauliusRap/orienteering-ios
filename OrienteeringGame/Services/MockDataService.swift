@@ -144,11 +144,13 @@ class MockDataService: ObservableObject {
         playerProgress.first { $0.huntId == huntId }
     }
     
-    func startHunt(huntId: String) -> PlayerProgress {
+    func startHunt(huntId: String) -> PlayerProgress? {
+        guard let hunt = getHunt(by: huntId) else { return nil }
         let progress = PlayerProgress(
             id: "progress-\(huntId)-\(UUID().uuidString.prefix(8))",
             playerId: currentPlayer.id,
             huntId: huntId,
+            totalClues: hunt.totalClues,
             currentClueIndex: 0,
             completedClueIds: [],
             earnedPoints: 0,

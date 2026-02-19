@@ -4,6 +4,7 @@ struct PlayerProgress: Identifiable, Codable {
     let id: String
     let playerId: String
     let huntId: String
+    let totalClues: Int
     var currentClueIndex: Int
     var completedClueIds: [String]
     var earnedPoints: Int
@@ -12,8 +13,8 @@ struct PlayerProgress: Identifiable, Codable {
     var isActive: Bool
     
     var progressPercentage: Double {
-        guard let hunt = MockDataService.shared.getHunt(by: huntId) else { return 0 }
-        return Double(completedClueIds.count) / Double(hunt.totalClues) * 100
+        guard totalClues > 0 else { return 0 }
+        return Double(completedClueIds.count) / Double(totalClues) * 100
     }
     
     var isCompleted: Bool {
