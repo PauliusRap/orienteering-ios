@@ -3,19 +3,34 @@ import Combine
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var player: Player?
+    @Published var user: User?
     @Published var nearbyHunts: [Hunt] = []
-    @Published var recentProgress: [PlayerProgress] = []
+    @Published var recentProgress: [HuntProgress] = []
     @Published var isLoading: Bool = true
+    @Published var errorMessage: String?
     
-    private let dataService = MockDataService.shared
+    private let apiService = APIService.shared
     private var cancellables = Set<AnyCancellable>()
     
-    func load() {
+    func load() async {
         isLoading = true
-        player = dataService.currentPlayer
-        nearbyHunts = Array(dataService.hunts.prefix(3))
-        recentProgress = dataService.playerProgress.filter { $0.isActive || $0.isCompleted }.prefix(3).map { $0 }
+        errorMessage = nil
+        
+        do {
+            user = apiService.currentUser
+            
+            async let huntsTask = apiService.fetchHunts()
+            async let progressTask = apiService.fetchProgress()
+            
+            let hunts = try await huntsTask
+            let progress = try await progressTask
+            
+            nearbyHunts = Array(hunts.prefix(3))
+            recentProgress = progress.filter { $0.isActive || $0.isCompleted }.prefix(3).map { $0 }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
         isLoading = false
     }
     

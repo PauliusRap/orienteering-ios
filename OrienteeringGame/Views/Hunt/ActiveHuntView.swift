@@ -18,6 +18,8 @@ struct ActiveHuntView: View {
             if viewModel.isLoading {
                 ProgressView()
                     .tint(Color(hex: "F59E0B"))
+            } else if let error = viewModel.errorMessage {
+                errorView(error)
             } else if viewModel.showingCompletion {
                 CompletionView(
                     points: viewModel.progress?.earnedPoints ?? 0,
@@ -37,15 +39,63 @@ struct ActiveHuntView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.load()
+            Task {
+                await viewModel.load()
+            }
             locationService.startUpdatingLocation()
-            if let location = viewModel.currentTargetLocation {
-                locationService.setTarget(location: location)
+            if let clue = viewModel.currentClue {
+                locationService.setTarget(latitude: clue.latitude, longitude: clue.longitude, checkInRadius: clue.radius)
             }
         }
         .onDisappear {
             locationService.clearTarget()
         }
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "EF4444"))
+            
+            Text("Failed to load hunt")
+                .font(.custom("Avenir-Heavy", size: 20))
+                .foregroundColor(.white)
+            
+            Text(error)
+                .font(.custom("Avenir-Book", size: 14))
+                .foregroundColor(Color(hex: "6B7280"))
+                .multilineTextAlignment(.center)
+            
+            HStack(spacing: 16) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Go Back")
+                        .font(.custom("Avenir-Black", size: 16))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(hex: "1F1F2E"))
+                        .cornerRadius(12)
+                }
+                
+                Button {
+                    Task {
+                        await viewModel.load()
+                    }
+                } label: {
+                    Text("Retry")
+                        .font(.custom("Avenir-Black", size: 16))
+                        .foregroundColor(Color(hex: "0A0A0F"))
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(hex: "F59E0B"))
+                        .cornerRadius(12)
+                }
+            }
+        }
+        .padding()
     }
     
     private var headerSection: some View {
@@ -147,7 +197,7 @@ struct ActiveHuntView: View {
                         .foregroundColor(Color(hex: "6B7280"))
                         .tracking(2)
                     
-                    Text(clue.title)
+                    Text("Find the Location")
                         .font(.custom("Avenir-Black", size: 28))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -159,7 +209,7 @@ struct ActiveHuntView: View {
                         .font(.system(size: 48))
                         .foregroundColor(Color(hex: "F59E0B").opacity(0.6))
                     
-                    Text(clue.riddle)
+                    Text(clue.hint)
                         .font(.custom("Avenir-Book", size: 20))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -179,10 +229,10 @@ struct ActiveHuntView: View {
                 
                 HStack(spacing: 16) {
                     VStack {
-                        Text("\(clue.points)")
+                        Text("\(Int(clue.radius))m")
                             .font(.custom("Avenir-Black", size: 28))
                             .foregroundColor(Color(hex: "EC4899"))
-                        Text("Points")
+                        Text("Check-in Radius")
                             .font(.custom("Avenir-Book", size: 12))
                             .foregroundColor(Color(hex: "6B7280"))
                     }
@@ -192,10 +242,10 @@ struct ActiveHuntView: View {
                     .cornerRadius(16)
                     
                     VStack {
-                        Text("+\(clue.timeBonus)")
+                        Text("#\(clue.order)")
                             .font(.custom("Avenir-Black", size: 28))
                             .foregroundColor(Color(hex: "10B981"))
-                        Text("Time Bonus")
+                        Text("of \(viewModel.clues.count)")
                             .font(.custom("Avenir-Book", size: 12))
                             .foregroundColor(Color(hex: "6B7280"))
                     }
@@ -225,8 +275,8 @@ struct ActiveHuntView: View {
             }
             
             Button {
-                if let clueId = viewModel.currentClue?.id {
-                    appState.navigate(to: .checkIn(clueId: clueId))
+                if let clueId = viewModel.currentClue?.id, let huntId = viewModel.hunt?.id {
+                    appState.navigate(to: .checkIn(clueId: clueId, huntId: huntId))
                 }
             } label: {
                 Text("Check In")

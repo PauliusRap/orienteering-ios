@@ -1,6 +1,6 @@
 import Foundation
 
-struct PlayerProgress: Identifiable, Codable {
+struct HuntProgress: Identifiable, Codable {
     let id: String
     let playerId: String
     let huntId: String
@@ -8,7 +8,7 @@ struct PlayerProgress: Identifiable, Codable {
     var currentClueIndex: Int
     var completedClueIds: [String]
     var earnedPoints: Int
-    var startedAt: Date
+    let startedAt: Date
     var completedAt: Date?
     var isActive: Bool
     
@@ -19,6 +19,16 @@ struct PlayerProgress: Identifiable, Codable {
     
     var isCompleted: Bool {
         completedAt != nil
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, totalClues, earnedPoints, isActive
+        case playerId = "player_id"
+        case huntId = "hunt_id"
+        case currentClueIndex = "current_clue_index"
+        case completedClueIds = "completed_clue_ids"
+        case startedAt = "started_at"
+        case completedAt = "completed_at"
     }
 }
 
@@ -36,4 +46,13 @@ struct LeaderboardEntry: Identifiable, Codable, Hashable {
         formatter.numberStyle = .decimal
         return formatter.string(from: NSNumber(value: totalPoints)) ?? "\(totalPoints)"
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, rank, totalPoints, completedHunts
+        case playerId = "player_id"
+        case playerName = "player_name"
+        case avatarUrl = "avatar_url"
+    }
 }
+
+typealias PlayerProgress = HuntProgress

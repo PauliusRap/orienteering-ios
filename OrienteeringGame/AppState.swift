@@ -4,18 +4,19 @@ import Combine
 @MainActor
 class AppState: ObservableObject {
     @Published var navigationPath = NavigationPath()
-    @Published var currentPlayer: Player?
+    @Published var currentUser: User?
     @Published var isOnHunt: Bool = false
     @Published var activeHuntId: String?
+    @Published var activeHuntDetail: HuntDetail?
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        loadCurrentPlayer()
+        loadCurrentUser()
     }
     
-    func loadCurrentPlayer() {
-        currentPlayer = MockDataService.shared.currentPlayer
+    func loadCurrentUser() {
+        currentUser = APIService.shared.currentUser
     }
     
     func navigate(to destination: NavigationDestination) {
@@ -37,6 +38,7 @@ class AppState: ObservableObject {
     func endHunt() {
         activeHuntId = nil
         isOnHunt = false
+        activeHuntDetail = nil
         navigationPath = NavigationPath()
     }
 }

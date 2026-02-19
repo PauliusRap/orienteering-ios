@@ -53,8 +53,8 @@ class LocationService: NSObject, ObservableObject {
         isLocationEnabled = false
     }
     
-    func setTarget(location: HuntLocation, checkInRadius: Double = 30) {
-        targetLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+    func setTarget(latitude: Double, longitude: Double, checkInRadius: Double = 30) {
+        targetLocation = CLLocation(latitude: latitude, longitude: longitude)
         self.checkInRadius = checkInRadius
         updateDistanceToTarget()
     }
@@ -77,9 +77,9 @@ class LocationService: NSObject, ObservableObject {
         isAtTarget = distance <= checkInRadius
     }
     
-    func distanceTo(location: HuntLocation) -> Double? {
+    func distanceTo(latitude: Double, longitude: Double) -> Double? {
         guard let current = currentLocation else { return nil }
-        let target = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        let target = CLLocation(latitude: latitude, longitude: longitude)
         return current.distance(from: target)
     }
     

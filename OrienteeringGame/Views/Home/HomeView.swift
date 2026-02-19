@@ -3,24 +3,71 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         ZStack {
             Color(hex: "0A0A0F")
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack(spacing: 0) {
-                    headerSection
-                    statsSection
-                    quickActionsSection
-                    nearbyHuntsSection
+            if viewModel.isLoading {
+                ProgressView()
+                    .tint(Color(hex: "F59E0B"))
+            } else if let error = viewModel.errorMessage {
+                errorView(error)
+            } else {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        headerSection
+                        statsSection
+                        quickActionsSection
+                        nearbyHuntsSection
+                    }
+                    .padding(.bottom, 100)
                 }
-                .padding(.bottom, 100)
+                .refreshable {
+                    await viewModel.load()
+                }
             }
         }
         .navigationBarHidden(true)
-        .onAppear { viewModel.load() }
+        .onAppear {
+            Task {
+                await viewModel.load()
+            }
+        }
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "EF4444"))
+            
+            Text("Something went wrong")
+                .font(.custom("Avenir-Heavy", size: 20))
+                .foregroundColor(.white)
+            
+            Text(error)
+                .font(.custom("Avenir-Book", size: 14))
+                .foregroundColor(Color(hex: "6B7280"))
+                .multilineTextAlignment(.center)
+            
+            Button {
+                Task {
+                    await viewModel.load()
+                }
+            } label: {
+                Text("Retry")
+                    .font(.custom("Avenir-Black", size: 16))
+                    .foregroundColor(Color(hex: "0A0A0F"))
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 12)
+                    .background(Color(hex: "F59E0B"))
+                    .cornerRadius(12)
+            }
+        }
+        .padding()
     }
     
     private var headerSection: some View {
@@ -30,27 +77,31 @@ struct HomeView: View {
                     .font(.custom("Avenir-Book", size: 16))
                     .foregroundColor(Color(hex: "6B7280"))
                 
-                Text(viewModel.player?.displayName ?? "Explorer")
+                Text(viewModel.user?.displayTitle ?? "Explorer")
                     .font(.custom("Avenir-Black", size: 28))
                     .foregroundColor(.white)
             }
             
             Spacer()
             
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color(hex: "F59E0B"), Color(hex: "D97706")],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+            Button {
+                appState.navigate(to: .profile)
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(hex: "F59E0B"), Color(hex: "D97706")],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                    )
-                    .frame(width: 56, height: 56)
-                
-                Text(viewModel.player?.displayName.prefix(2).uppercased() ?? "EX")
-                    .font(.custom("Avenir-Black", size: 18))
-                    .foregroundColor(Color(hex: "0A0A0F"))
+                        .frame(width: 56, height: 56)
+                    
+                    Text(viewModel.user?.displayTitle.prefix(2).uppercased() ?? "EX")
+                        .font(.custom("Avenir-Black", size: 18))
+                        .foregroundColor(Color(hex: "0A0A0F"))
+                }
             }
         }
         .padding(.horizontal, 24)
@@ -62,21 +113,21 @@ struct HomeView: View {
         HStack(spacing: 12) {
             StatCard(
                 title: "Points",
-                value: viewModel.player?.formattedPoints ?? "0",
+                value: viewModel.user?.formattedPoints ?? "0",
                 icon: "star.fill",
                 color: Color(hex: "F59E0B")
             )
             
             StatCard(
                 title: "Hunts",
-                value: "\(viewModel.player?.completedHunts ?? 0)",
+                value: "\(viewModel.user?.completedHunts ?? 0)",
                 icon: "flag.fill",
                 color: Color(hex: "10B981")
             )
             
             StatCard(
                 title: "Streak",
-                value: "\(viewModel.player?.currentStreak ?? 0)",
+                value: "\(viewModel.user?.currentStreak ?? 0)",
                 icon: "flame.fill",
                 color: Color(hex: "EF4444")
             )
@@ -291,7 +342,6 @@ struct HuntCard: View {
         case .easy: return [Color(hex: "10B981"), Color(hex: "059669")]
         case .medium: return [Color(hex: "F59E0B"), Color(hex: "D97706")]
         case .hard: return [Color(hex: "EF4444"), Color(hex: "DC2626")]
-        case .expert: return [Color(hex: "8B5CF6"), Color(hex: "7C3AED")]
         }
     }
 }

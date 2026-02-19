@@ -17,7 +17,11 @@ struct ProgressView: View {
             }
         }
         .navigationBarHidden(true)
-        .onAppear { viewModel.load() }
+        .onAppear {
+            Task {
+                await viewModel.load()
+            }
+        }
     }
     
     private var headerSection: some View {
@@ -78,14 +82,59 @@ struct ProgressView: View {
     
     @ViewBuilder
     private var contentSection: some View {
-        switch viewModel.selectedTab {
-        case .overview:
-            overviewContent
-        case .leaderboard:
-            leaderboardContent
-        case .history:
-            historyContent
+        if viewModel.isLoading {
+            Spacer()
+            ProgressView()
+                .tint(Color(hex: "F59E0B"))
+            Spacer()
+        } else if let error = viewModel.errorMessage {
+            errorView(error)
+        } else {
+            switch viewModel.selectedTab {
+            case .overview:
+                overviewContent
+            case .leaderboard:
+                leaderboardContent
+            case .history:
+                historyContent
+            }
         }
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "EF4444"))
+            
+            Text("Failed to load data")
+                .font(.custom("Avenir-Heavy", size: 20))
+                .foregroundColor(.white)
+            
+            Text(error)
+                .font(.custom("Avenir-Book", size: 14))
+                .foregroundColor(Color(hex: "6B7280"))
+                .multilineTextAlignment(.center)
+            
+            Button {
+                Task {
+                    await viewModel.load()
+                }
+            } label: {
+                Text("Retry")
+                    .font(.custom("Avenir-Black", size: 16))
+                    .foregroundColor(Color(hex: "0A0A0F"))
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 12)
+                    .background(Color(hex: "F59E0B"))
+                    .cornerRadius(12)
+            }
+            
+            Spacer()
+        }
+        .padding()
     }
     
     private var overviewContent: some View {
@@ -98,7 +147,7 @@ struct ProgressView: View {
                             .frame(width: 160, height: 160)
                         
                         Circle()
-                            .trim(from: 0, to: min(Double(viewModel.player?.completedHunts ?? 0) / 20.0, 1.0))
+                            .trim(from: 0, to: min(Double(viewModel.user?.completedHunts ?? 0) / 20.0, 1.0))
                             .stroke(
                                 LinearGradient(
                                     colors: [Color(hex: "F59E0B"), Color(hex: "D97706")],
@@ -124,19 +173,19 @@ struct ProgressView: View {
                 
                 HStack(spacing: 12) {
                     StatBox(
-                        value: viewModel.player?.formattedPoints ?? "0",
+                        value: viewModel.user?.formattedPoints ?? "0",
                         label: "Total Points",
                         color: Color(hex: "EC4899")
                     )
                     
                     StatBox(
-                        value: "\(viewModel.player?.completedHunts ?? 0)",
+                        value: "\(viewModel.user?.completedHunts ?? 0)",
                         label: "Hunts Done",
                         color: Color(hex: "10B981")
                     )
                     
                     StatBox(
-                        value: "\(viewModel.player?.currentStreak ?? 0)",
+                        value: "\(viewModel.user?.currentStreak ?? 0)",
                         label: "Day Streak",
                         color: Color(hex: "EF4444")
                     )
@@ -170,7 +219,7 @@ struct ProgressView: View {
                 ForEach(viewModel.leaderboard) { entry in
                     LeaderboardRow(
                         entry: entry,
-                        isCurrentUser: entry.playerId == viewModel.player?.id
+                        isCurrentUser: entry.playerId == viewModel.user?.id
                     )
                 }
             }

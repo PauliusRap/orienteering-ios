@@ -8,14 +8,22 @@ class HuntSelectionViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var selectedDifficulty: HuntDifficulty?
     @Published var isLoading: Bool = true
+    @Published var errorMessage: String?
     
-    private let dataService = MockDataService.shared
+    private let apiService = APIService.shared
     private var cancellables = Set<AnyCancellable>()
     
-    func load() {
+    func load() async {
         isLoading = true
-        hunts = dataService.hunts.filter { $0.isActive }
-        applyFilters()
+        errorMessage = nil
+        
+        do {
+            hunts = try await apiService.fetchHunts()
+            applyFilters()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
         isLoading = false
     }
     

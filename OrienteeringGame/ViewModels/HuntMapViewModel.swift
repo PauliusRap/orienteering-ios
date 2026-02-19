@@ -5,43 +5,62 @@ import MapKit
 @MainActor
 class HuntMapViewModel: ObservableObject {
     @Published var hunt: Hunt?
-    @Published var locations: [HuntLocation] = []
+    @Published var clues: [Clue] = []
     @Published var annotations: [HuntAnnotation] = []
     @Published var region: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.7829, longitude: -73.9654),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
-    @Published var selectedLocation: HuntLocation?
+    @Published var selectedClue: Clue?
     @Published var isLoading: Bool = true
     @Published var userTrackingMode: MapUserTrackingMode = .follow
+    @Published var errorMessage: String?
     
     private let huntId: String
-    private let dataService = MockDataService.shared
+    private let apiService = APIService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init(huntId: String) {
         self.huntId = huntId
     }
     
-    func load() {
+    func load() async {
         isLoading = true
-        hunt = dataService.getHunt(by: huntId)
-        locations = dataService.getLocations(for: huntId)
+        errorMessage = nil
         
-        annotations = locations.enumerated().map { index, location in
-            HuntAnnotation(
-                id: location.id,
-                coordinate: location.coordinate,
-                title: "Stop \(index + 1)",
-                subtitle: location.name
+        do {
+            let detail = try await apiService.fetchHunt(id: huntId)
+            hunt = Hunt(
+                id: detail.id,
+                name: detail.name,
+                description: detail.description,
+                difficulty: detail.difficulty,
+                estimatedDuration: detail.estimatedDuration,
+                totalClues: detail.totalClues,
+                totalPoints: detail.totalPoints,
+                imageUrl: detail.imageUrl,
+                isActive: detail.isActive,
+                createdAt: detail.createdAt
             )
-        }
-        
-        if let firstLocation = locations.first {
-            region = MKCoordinateRegion(
-                center: firstLocation.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-            )
+            clues = detail.clues.sorted { $0.order < $1.order }
+            
+            annotations = clues.map { clue in
+                HuntAnnotation(
+                    id: clue.id,
+                    coordinate: clue.coordinate,
+                    title: "Clue #\(clue.order)",
+                    subtitle: clue.hint
+                )
+            }
+            
+            if let firstClue = clues.first {
+                region = MKCoordinateRegion(
+                    center: firstClue.coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                )
+            }
+        } catch {
+            errorMessage = error.localizedDescription
         }
         
         isLoading = false
@@ -54,12 +73,12 @@ class HuntMapViewModel: ObservableObject {
         }
     }
     
-    func centerOnLocation(_ location: HuntLocation) {
+    func centerOnClue(_ clue: Clue) {
         withAnimation {
-            region.center = location.coordinate
+            region.center = clue.coordinate
             region.span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         }
-        selectedLocation = location
+        selectedClue = clue
     }
 }
 

@@ -1,17 +1,18 @@
 import Foundation
+import CoreLocation
 
 struct Clue: Identifiable, Codable, Hashable {
     let id: String
     let huntId: String
     let order: Int
-    let title: String
-    let riddle: String
-    let locationId: String
-    let points: Int
-    let timeBonus: Int
-    var isUnlocked: Bool = false
-    var isCompleted: Bool = false
-    var completedAt: Date?
+    let hint: String
+    let latitude: Double
+    let longitude: Double
+    let radius: Double
+    
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
     
     static func == (lhs: Clue, rhs: Clue) -> Bool {
         lhs.id == rhs.id
@@ -19,5 +20,10 @@ struct Clue: Identifiable, Codable, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, order, hint, latitude, longitude, radius
+        case huntId = "hunt_id"
     }
 }

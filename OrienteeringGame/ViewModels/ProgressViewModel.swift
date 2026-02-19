@@ -3,15 +3,16 @@ import Combine
 
 @MainActor
 class ProgressViewModel: ObservableObject {
-    @Published var player: Player?
+    @Published var user: User?
     @Published var leaderboard: [LeaderboardEntry] = []
     @Published var playerRank: Int = 0
-    @Published var completedHunts: [PlayerProgress] = []
-    @Published var activeHunts: [PlayerProgress] = []
+    @Published var completedHunts: [HuntProgress] = []
+    @Published var activeHunts: [HuntProgress] = []
     @Published var isLoading: Bool = true
     @Published var selectedTab: ProgressTab = .overview
+    @Published var errorMessage: String?
     
-    private let dataService = MockDataService.shared
+    private let apiService = APIService.shared
     private var cancellables = Set<AnyCancellable>()
     
     enum ProgressTab: String, CaseIterable {
@@ -20,21 +21,33 @@ class ProgressViewModel: ObservableObject {
         case history = "History"
     }
     
-    func load() {
+    func load() async {
         isLoading = true
-        player = dataService.currentPlayer
-        leaderboard = dataService.leaderboard
-        playerRank = dataService.getPlayerRank()
+        errorMessage = nil
         
-        let allProgress = dataService.playerProgress
-        completedHunts = allProgress.filter { $0.isCompleted }.sorted { $0.completedAt ?? .distantPast > $1.completedAt ?? .distantPast }
-        activeHunts = allProgress.filter { $0.isActive }
+        do {
+            user = apiService.currentUser
+            
+            async let progressTask = apiService.fetchProgress()
+            async let leaderboardTask = apiService.fetchGlobalLeaderboard()
+            
+            let progress = try await progressTask
+            let leaderboardData = try await leaderboardTask
+            
+            leaderboard = leaderboardData
+            playerRank = leaderboard.first { $0.playerId == user?.id }?.rank ?? 0
+            
+            completedHunts = progress.filter { $0.isCompleted }.sorted { $0.completedAt ?? .distantPast > $1.completedAt ?? .distantPast }
+            activeHunts = progress.filter { $0.isActive }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
         
         isLoading = false
     }
     
     func getHuntName(for huntId: String) -> String {
-        dataService.getHunt(by: huntId)?.name ?? "Unknown Hunt"
+        "Hunt \(huntId.prefix(8))"
     }
     
     func formatDuration(from start: Date, to end: Date?) -> String {

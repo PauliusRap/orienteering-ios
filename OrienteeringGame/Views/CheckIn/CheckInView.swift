@@ -4,10 +4,11 @@ struct CheckInView: View {
     @StateObject private var viewModel: CheckInViewModel
     @EnvironmentObject var locationService: LocationService
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var activeHuntViewModel: ActiveHuntViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(clueId: String) {
-        _viewModel = StateObject(wrappedValue: CheckInViewModel(clueId: clueId))
+    init(clueId: String, huntId: String) {
+        _viewModel = StateObject(wrappedValue: CheckInViewModel(clueId: clueId, huntId: huntId))
     }
     
     var body: some View {
@@ -17,9 +18,10 @@ struct CheckInView: View {
             
             if viewModel.isCheckInSuccessful {
                 SuccessView(
-                    points: viewModel.clue?.points ?? 0,
-                    bonus: viewModel.clue?.timeBonus ?? 0
+                    points: viewModel.pointsEarned,
+                    bonus: viewModel.bonusPoints
                 ) {
+                    activeHuntViewModel.completeCurrentClue()
                     dismiss()
                 }
             } else {
@@ -34,11 +36,11 @@ struct CheckInView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.load()
-            locationService.startUpdatingLocation()
-            if let location = viewModel.location {
-                locationService.setTarget(location: location)
+            if let clue = activeHuntViewModel.currentClue {
+                viewModel.setClue(clue)
+                locationService.setTarget(latitude: clue.latitude, longitude: clue.longitude, checkInRadius: clue.radius)
             }
+            locationService.startUpdatingLocation()
         }
         .onReceive(locationService.$currentLocation) { _ in
             viewModel.updateDistance(locationService: locationService)
@@ -103,13 +105,13 @@ struct CheckInView: View {
                 }
             }
             
-            if let location = viewModel.location {
+            if let clue = viewModel.clue {
                 VStack(spacing: 8) {
-                    Text(location.name)
+                    Text("Clue #\(clue.order)")
                         .font(.custom("Avenir-Heavy", size: 20))
                         .foregroundColor(.white)
                     
-                    Text(location.hint)
+                    Text(clue.hint)
                         .font(.custom("Avenir-Book", size: 16))
                         .foregroundColor(Color(hex: "9CA3AF"))
                         .multilineTextAlignment(.center)
@@ -122,7 +124,7 @@ struct CheckInView: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundColor(Color(hex: "EF4444"))
                     
-                    Text("Get closer to check in!")
+                    Text(viewModel.errorMessage ?? "Get closer to check in!")
                         .font(.custom("Avenir-Medium", size: 14))
                         .foregroundColor(Color(hex: "EF4444"))
                 }
@@ -141,7 +143,9 @@ struct CheckInView: View {
                 .foregroundColor(viewModel.isWithinRange ? Color(hex: "10B981") : Color(hex: "6B7280"))
             
             Button {
-                viewModel.attemptCheckIn(locationService: locationService)
+                Task {
+                    await viewModel.attemptCheckIn(locationService: locationService)
+                }
             } label: {
                 if viewModel.isVerifying {
                     ProgressView()

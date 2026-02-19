@@ -15,26 +15,81 @@ struct HuntMapView: View {
             Color(hex: "0A0A0F")
                 .ignoresSafeArea()
             
-            ZStack {
-                Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: viewModel.annotations) { annotation in
-                    MapAnnotation(coordinate: annotation.coordinate) {
-                        MapPinView(order: viewModel.annotations.firstIndex(where: { $0.id == annotation.id }) ?? 0)
+            if viewModel.isLoading {
+                ProgressView()
+                    .tint(Color(hex: "F59E0B"))
+            } else if let error = viewModel.errorMessage {
+                errorView(error)
+            } else {
+                ZStack {
+                    Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: viewModel.annotations) { annotation in
+                        MapAnnotation(coordinate: annotation.coordinate) {
+                            MapPinView(order: viewModel.annotations.firstIndex(where: { $0.id == annotation.id }) ?? 0)
+                        }
                     }
-                }
-                .ignoresSafeArea()
-                
-                VStack {
-                    headerBar
-                    Spacer()
-                    locationList
+                    .ignoresSafeArea()
+                    
+                    VStack {
+                        headerBar
+                        Spacer()
+                        locationList
+                    }
                 }
             }
         }
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.load()
+            Task {
+                await viewModel.load()
+            }
             locationService.startUpdatingLocation()
         }
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "EF4444"))
+            
+            Text("Failed to load map")
+                .font(.custom("Avenir-Heavy", size: 20))
+                .foregroundColor(.white)
+            
+            Text(error)
+                .font(.custom("Avenir-Book", size: 14))
+                .foregroundColor(Color(hex: "6B7280"))
+                .multilineTextAlignment(.center)
+            
+            HStack(spacing: 16) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Go Back")
+                        .font(.custom("Avenir-Black", size: 16))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(hex: "1F1F2E"))
+                        .cornerRadius(12)
+                }
+                
+                Button {
+                    Task {
+                        await viewModel.load()
+                    }
+                } label: {
+                    Text("Retry")
+                        .font(.custom("Avenir-Black", size: 16))
+                        .foregroundColor(Color(hex: "0A0A0F"))
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color(hex: "F59E0B"))
+                        .cornerRadius(12)
+                }
+            }
+        }
+        .padding()
     }
     
     private var headerBar: some View {
@@ -80,13 +135,12 @@ struct HuntMapView: View {
     private var locationList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
-                ForEach(Array(viewModel.locations.enumerated()), id: \.element.id) { index, location in
-                    LocationCard(
-                        order: index + 1,
-                        location: location,
-                        distance: locationService.distanceTo(location: location)
+                ForEach(viewModel.clues) { clue in
+                    ClueCard(
+                        clue: clue,
+                        distance: locationService.distanceTo(latitude: clue.latitude, longitude: clue.longitude)
                     ) {
-                        viewModel.centerOnLocation(location)
+                        viewModel.centerOnClue(clue)
                     }
                 }
             }
@@ -119,9 +173,8 @@ struct MapPinView: View {
     }
 }
 
-struct LocationCard: View {
-    let order: Int
-    let location: HuntLocation
+struct ClueCard: View {
+    let clue: Clue
     let distance: Double?
     let action: () -> Void
     
@@ -134,22 +187,22 @@ struct LocationCard: View {
                             .fill(Color(hex: "F59E0B"))
                             .frame(width: 28, height: 28)
                         
-                        Text("\(order)")
+                        Text("\(clue.order)")
                             .font(.custom("Avenir-Black", size: 14))
                             .foregroundColor(Color(hex: "0A0A0F"))
                     }
                     
-                    Text("Stop \(order)")
+                    Text("Clue #\(clue.order)")
                         .font(.custom("Avenir-Heavy", size: 14))
                         .foregroundColor(.white)
                     
                     Spacer()
                 }
                 
-                Text(location.name)
+                Text(clue.hint)
                     .font(.custom("Avenir-Book", size: 13))
                     .foregroundColor(Color(hex: "9CA3AF"))
-                    .lineLimit(1)
+                    .lineLimit(2)
                 
                 if let distance = distance {
                     HStack(spacing: 4) {

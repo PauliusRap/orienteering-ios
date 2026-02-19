@@ -18,6 +18,8 @@ struct HuntSelectionView: View {
                     ProgressView()
                         .tint(Color(hex: "F59E0B"))
                     Spacer()
+                } else if let error = viewModel.errorMessage {
+                    errorView(error)
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 16) {
@@ -30,13 +32,56 @@ struct HuntSelectionView: View {
                         .padding(.horizontal, 24)
                         .padding(.bottom, 100)
                     }
+                    .refreshable {
+                        await viewModel.load()
+                    }
                 }
             }
         }
         .navigationBarHidden(true)
-        .onAppear { viewModel.load() }
+        .onAppear {
+            Task {
+                await viewModel.load()
+            }
+        }
         .onChange(of: viewModel.searchText) { _ in viewModel.applyFilters() }
         .onChange(of: viewModel.selectedDifficulty) { _ in viewModel.applyFilters() }
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "EF4444"))
+            
+            Text("Failed to load hunts")
+                .font(.custom("Avenir-Heavy", size: 20))
+                .foregroundColor(.white)
+            
+            Text(error)
+                .font(.custom("Avenir-Book", size: 14))
+                .foregroundColor(Color(hex: "6B7280"))
+                .multilineTextAlignment(.center)
+            
+            Button {
+                Task {
+                    await viewModel.load()
+                }
+            } label: {
+                Text("Retry")
+                    .font(.custom("Avenir-Black", size: 16))
+                    .foregroundColor(Color(hex: "0A0A0F"))
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 12)
+                    .background(Color(hex: "F59E0B"))
+                    .cornerRadius(12)
+            }
+            
+            Spacer()
+        }
+        .padding()
     }
     
     private var headerSection: some View {
@@ -98,7 +143,7 @@ struct HuntSelectionView: View {
                     
                     ForEach(HuntDifficulty.allCases, id: \.self) { difficulty in
                         DifficultyChip(
-                            title: difficulty.rawValue,
+                            title: difficulty.displayValue,
                             isSelected: viewModel.selectedDifficulty == difficulty
                         ) {
                             viewModel.selectedDifficulty = difficulty
@@ -136,7 +181,7 @@ struct HuntSelectionCard: View {
                                     .font(.system(size: 36, weight: .light))
                                     .foregroundColor(.white.opacity(0.9))
                                 
-                                Text(hunt.difficulty.rawValue.uppercased())
+                                Text(hunt.difficulty.displayValue.uppercased())
                                     .font(.custom("Avenir-Black", size: 12))
                                     .foregroundColor(.white.opacity(0.8))
                                     .tracking(2)
@@ -196,7 +241,6 @@ struct HuntSelectionCard: View {
         case .easy: return [Color(hex: "10B981"), Color(hex: "047857")]
         case .medium: return [Color(hex: "F59E0B"), Color(hex: "B45309")]
         case .hard: return [Color(hex: "EF4444"), Color(hex: "B91C1C")]
-        case .expert: return [Color(hex: "8B5CF6"), Color(hex: "6D28D9")]
         }
     }
 }
