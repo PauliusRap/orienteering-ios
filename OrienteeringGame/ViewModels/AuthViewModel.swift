@@ -7,11 +7,20 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     let apiService = APIService.shared
+    private var cancellables = Set<AnyCancellable>()
     
     var isAuthenticated: Bool { apiService.isAuthenticated }
     var currentUser: User? { apiService.currentUser }
     
-    init() {}
+    init() {
+        // Forward APIService changes to trigger view updates
+        apiService.objectWillChange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+    }
     
     func login(username: String, password: String) async {
         isLoading = true
