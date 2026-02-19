@@ -3,32 +3,15 @@ import Combine
 
 @MainActor
 class AuthViewModel: ObservableObject {
-    @Published var isAuthenticated: Bool = false
-    @Published var currentUser: User?
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    private let apiService = APIService.shared
-    private var cancellables = Set<AnyCancellable>()
+    let apiService = APIService.shared
     
-    init() {
-        isAuthenticated = apiService.isAuthenticated
-        currentUser = apiService.currentUser
-        
-        apiService.$isAuthenticated
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
-                self?.isAuthenticated = value
-            }
-            .store(in: &cancellables)
-        
-        apiService.$currentUser
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
-                self?.currentUser = value
-            }
-            .store(in: &cancellables)
-    }
+    var isAuthenticated: Bool { apiService.isAuthenticated }
+    var currentUser: User? { apiService.currentUser }
+    
+    init() {}
     
     func login(username: String, password: String) async {
         isLoading = true
@@ -36,7 +19,6 @@ class AuthViewModel: ObservableObject {
         
         do {
             _ = try await apiService.login(username: username, password: password)
-            isAuthenticated = true
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -61,8 +43,6 @@ class AuthViewModel: ObservableObject {
     
     func logout() async {
         await apiService.logout()
-        isAuthenticated = false
-        currentUser = nil
     }
     
     func refreshProfile() async {
