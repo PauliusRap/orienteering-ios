@@ -189,7 +189,6 @@ final class APIService: ObservableObject {
         let request = try buildRequest(endpoint: "/api/auth/register", method: "POST", body: body)
         let user: User = try await performRequest(request)
         
-        currentUser = user
         cacheUser(user)
         
         return user
@@ -251,7 +250,9 @@ final class APIService: ObservableObject {
         let body = try JSONSerialization.data(withJSONObject: bodyDict)
         let request = try buildRequest(endpoint: "/api/users/me", method: "PUT", body: body, requiresAuth: true)
         let user: User = try await performRequest(request)
-        currentUser = user
+        await MainActor.run {
+            self.currentUser = user
+        }
         cacheUser(user)
         return user
     }
